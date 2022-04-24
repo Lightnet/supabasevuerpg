@@ -1,4 +1,4 @@
-# fastifysupabasevue
+# supabasevuerpg
 
 # Status:
 - Still testing...
