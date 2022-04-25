@@ -31,6 +31,7 @@
         />
       </div>
       <div >
+        <template v-if="passwordless">
         <input
           type="submit"
           class="button block"
@@ -38,6 +39,16 @@
           :disabled="loading"
           @click="handleLogin"
         />
+        </template>
+        <template v-else>
+          <input
+          type="submit"
+          class="button block"
+          :value="loading ? 'Loading' : 'Login'"
+          :disabled="loading"
+          @click="handleLogin"
+        />
+        </template>
 
         <button
           class="button block"

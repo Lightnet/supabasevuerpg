@@ -13,8 +13,56 @@
 
 
 import Phaser from 'phaser'
+// https://phaser.io/examples/v3/view/demoscene/birdy-nam-nam
+function bootLoader ()
+{
+  //this.load.image('loader', 'assets/demoscene/birdy-nam-nam-loader.png');
+  //this.load.image('click', 'assets/demoscene/birdy-nam-nam-click.png');
+}
+
+function bootCreate ()
+{
+  this.scene.start('demo');
+}
+
+var loaderSceneConfig = {
+  key: 'loader',
+  active: true,
+  preload: bootLoader,
+  create: bootCreate
+}
 
 
+function preload ()
+{
+  //loadImage = this.add.image(0, 0, 'loader').setOrigin(0);
+
+  //this.load.audio('jungle', [ 'assets/audio/jungle.ogg', 'assets/audio/jungle.mp3' ]);
+  //this.load.animation('birdyAnims', 'assets/demoscene/birdy.json');
+  //this.load.image('bg1', 'assets/demoscene/birdy-nam-nam-bg1.png');
+  //this.load.image('bg2', 'assets/demoscene/birdy-nam-nam-bg2.png');
+  //this.load.atlas('birdy', 'assets/demoscene/budbrain.png', 'assets/demoscene/budbrain.json');
+}
+
+function create (){
+
+}
+
+var demoSceneConfig = {
+  key: 'demo',
+  active: false,
+  visible: false,
+  preload: preload,
+  create: create,
+  extend: {
+    startDemo: startDemo
+  }
+};
+
+function startDemo ()
+{
+
+}
 
 
 

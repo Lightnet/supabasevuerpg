@@ -1,8 +1,8 @@
 <script setup>
 //import { store } from '../store';
 //console.log(store)
-import GroupMessageSectionVue from '../components/groupmessage/GroupMessageSection.vue';
+import GroupMessagePage from '../components/groupmessage/GroupMessagePage.vue';
 </script>
 <template>
-  <GroupMessageSectionVue />
+  <group-message-page />
 </template>

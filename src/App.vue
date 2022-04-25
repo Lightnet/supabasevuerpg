@@ -21,9 +21,12 @@ export default {
         //store.user = {}
         //return;
       //}
-      store.user = session.user
+      if(session?.user){
+        store.user = session.user
+      }else{
+        store.user = null
+      }
     })
-
     return {
       store,
     }

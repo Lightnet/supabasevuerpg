@@ -1,5 +1,5 @@
 <script setup>
-
+import SignoutLink from './components/account/SignoutLink.vue';
 
 </script>
 <template>
@@ -12,6 +12,7 @@
     <router-link to="/groupchat">Group Chat</router-link> |
     <router-link to="/game">Game</router-link> |
     <router-link to="/todolist"> To Do List</router-link> |
+    <signout-link/>
   </div>
   <router-view/>
 </template>

@@ -2,6 +2,7 @@
 
 # Status:
 - Still testing...
+- working on setup.
 
 # Test:
 - Tested on window 10 64 bit.
@@ -10,18 +11,16 @@
 - supabase for client test limited 500 mb. ( free with limited set.)
 
 # Information:
-  Work in progresss. Supabase is SQL database and graph that this app connect directly to client browser using the token system.
+  Work in progresss. Supabase is SQL database as it use client browser token system to query data.
 
-  By using the Supabase api and config to set up and connect to database query from browser that is compile to single file.
+  Supabase has built in features like database trigger, auth, function and other api calls.
 
-  To test out the database access. To create simple rpg for save, edit, delete and load tests.
-
-  One is reduce recoding handle from server side handlers.
+  This is prototype project build game developement. As creating the role playing game and other game modes for required access and permission for update, edit, delete, create, ref and other things. By scripting in sql language and other format in database server api.
 
 # Dev:
-  Note there two testing for vite server and fastity and config different a bit.
-
-  SQL need to learn as with auth check and events for database access.
+- Note there two testing for vite server and fastity and config different a bit.
+- SQL need to learn as with auth check and events for database api access.
+-
 
 # layout:
 ```
@@ -40,6 +39,18 @@ app.mjs // fastify server
 index.html // client for vite
 vite.config.mjs // client vite config
 ```
+# sql database and design:
+  Design and testing.
+
+  Either by using the function sql to check permission for create, update and delete. By using user id check with auth api.
+
+  One example is delete user account.
+  Two example is create their home base or home.
+
+```
+```
+
+
 # Config:
 .env
 ```

@@ -1,8 +1,8 @@
 <script setup>
 //import { store } from '../store';
 //console.log(store)
-import PublicChatSection from "../components/messagechat/MessageChatSection.vue";
+import MessageChatPage from "../components/messagechat/MessageChatPage.vue";
 </script>
 <template>
-  <PublicChatSection />
+  <message-chat-page />
 </template>

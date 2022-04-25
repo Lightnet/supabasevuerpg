@@ -1,8 +1,8 @@
 <script setup>
 //import { store } from '../store';
 //console.log(store)
-import ToDoListSectionVue from '../components/todolist/ToDoListSection.vue';
+import ToDoListPage from '../components/todolist/ToDoListPage.vue';
 </script>
 <template>
-  <ToDoListSectionVue/>
+  <to-do-list-page/>
 </template>

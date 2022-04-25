@@ -24,7 +24,7 @@ const routes = [
     name: 'Message',
     component: () => import('../views/Message.vue'),
     children: [
-      { path: '', component: () => import('../components/message/MessageSection.vue') },
+      { path: '', component: () => import('../components/message/MessagePage.vue') },
       { path: 'inbox', component: () => import('../components/message/MessageInbox.vue') },
       { path: 'compose', component: () => import('../components/message/MessageCompose.vue') },
       { path: 'settings', component: () => import('../components/message/MessageSettings.vue') },
