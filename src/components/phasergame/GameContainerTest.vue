@@ -15,7 +15,7 @@ export default {
     }
   },
   async mounted() {
-    const game = await import(/* webpackChunkName: "game" */ './game.mjs')
+    const game = await import(/* webpackChunkName: "game" */ './GameTest.mjs')
     this.downloaded = true
     this.$nextTick(() => {
       console.log("setup")

@@ -16,7 +16,7 @@
 </style>
 <script setup>
 import Phaser from "phaser";
-import GameTest from "./GameContainer.vue";
+import GameTest from "./GameContainerTest.vue";
 
 /*
 export default {

@@ -1,8 +1,8 @@
 <script setup>
 //import { store } from '../store';
 //console.log(store)
-import GamePhaser from "../components/game/GamePhaser.vue";
+import GameSection from "../components/game/GameSection.vue";
 </script>
 <template>
-  <game-phaser/>
+  <game-section />
 </template>
