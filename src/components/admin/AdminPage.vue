@@ -3,6 +3,5 @@
 
 </script>
 <template>
-
+  <label>Admin</label>
 </template>
-

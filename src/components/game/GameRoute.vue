@@ -42,7 +42,7 @@ const tabs = [
 <template>
   <div>
     <template v-for="tab in tabs">
-    <a href="#" @click="view = tab.comp">{{tab.name}}</a> |  
+      <a href="#" @click="view = tab.comp">{{tab.name}}</a> |  
     </template>
   </div>
   <div>

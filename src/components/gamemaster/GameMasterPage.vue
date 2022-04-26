@@ -3,5 +3,5 @@
 
 </script>
 <template>
-  <label>Moderator</label>
+  <label>Game Master</label>
 </template>

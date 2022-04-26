@@ -12,6 +12,9 @@ import SignoutLink from './components/account/SignoutLink.vue';
     <router-link to="/groupchat">Group Chat</router-link> |
     <router-link to="/game">Game</router-link> |
     <router-link to="/todolist"> To Do List</router-link> |
+    <router-link to="/admin"> Admin</router-link> |
+    <router-link to="/moderator"> Moderator</router-link> |
+    <router-link to="/gamemaster"> Game Master</router-link> |
     <signout-link/>
   </div>
   <router-view/>

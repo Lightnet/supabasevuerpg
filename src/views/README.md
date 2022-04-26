@@ -1,0 +1,1 @@
+For vue router set up pages or urls.

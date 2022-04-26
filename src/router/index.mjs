@@ -50,6 +50,21 @@ const routes = [
     name: 'Game',
     component: () => import('../views/Game.vue')
   },
+  {
+    path: '/admin',
+    name: 'Admin',
+    component: () => import('../views/Admin.vue')
+  },
+  {
+    path: '/moderator',
+    name: 'Moderator',
+    component: () => import('../views/Moderator.vue')
+  },
+  {
+    path: '/gamemaster',
+    name: 'GameMaster',
+    component: () => import('../views/GameMaster.vue')
+  },
 ]
 
 const router = createRouter({

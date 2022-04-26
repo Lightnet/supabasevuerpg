@@ -17,10 +17,18 @@
 
   This is prototype project build game developement. As creating the role playing game and other game modes for required access and permission for update, edit, delete, create, ref and other things. By scripting in sql language and other format in database server api.
 
+# game modes:
+- moblie home base
+  - building base
+  - base defense
+  
+- role playing game
+  - dungeon?
+  - explore?
+
 # Dev:
 - Note there two testing for vite server and fastity and config different a bit.
 - SQL need to learn as with auth check and events for database api access.
--
 
 # layout:
 ```
