@@ -1,3 +1,17 @@
+```sql
+
+create or replace function auth.email() returns text as $$
+  select nullif(current_setting('request.jwt.claims', true)::json->>'email', '')::text;
+$$ language sql;
+
+create policy "Only alias staff can update leaderboard"
+  on my_scores
+  for update using (
+    right(auth.email(), 13) = '@alias.com'
+  );
+```
+
+
 alter table "your_table" replica identity full;
 
 
@@ -31,18 +45,6 @@ create trigger on_auth_user_created
   after insert on auth.users
   for each row execute procedure public.handle_new_user();
 ```
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

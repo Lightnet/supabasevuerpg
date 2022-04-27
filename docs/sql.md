@@ -10,9 +10,18 @@
 
 
 
+# :
+https://supabase.com/docs/guides/database/replication
+
+```sql
+create publication publication_name 
+for all tables;
 
 
-
+create publication publication_name 
+for all tables
+with (publish = 'insert');
+```
 
 
 # sql functions:
