@@ -15,7 +15,49 @@
 
   Supabase has built in features like database trigger, auth, function and other api calls.
 
-  This is prototype project build game developement. As creating the role playing game and other game modes for required access and permission for update, edit, delete, create, ref and other things. By scripting in sql language and other format in database server api.
+  This is prototype project build game developement. As creating the role playing game and application for required access and permission for update, edit, delete, create, ref and other things. By scripting in sql language and other format in database server api.
+
+# Supabase:
+  Please note that there will be a lot sql scripts. For setup tables, permissions, functions, triggers and other things to have data query access checks.
+
+  More info on link: 
+  - https://supabase.com/docs
+  - https://supabase.com/docs/reference/javascript/supabase-client
+  - https://postgrest.org/en/stable/
+
+  It base on postgrest database.
+
+  One of the reason is to test the limits of the sql query call from api sql.
+
+Database function call in sql have easy way to check and query access.
+
+# Features:
+  Note some are examples base on the supabase turtorials, github, refs and other sites.
+
+  Simple query for debug.
+
+- global chat room (testing)
+  - user post id but can't edit others
+  - need to remove user id and user proxy id
+  - add (added)
+  - remove (added)
+  - update 
+  - filter 
+- group message (work in progress)
+  - permission
+  - view to group id only
+  - add
+  - remove
+  - update
+- to do list (testing)
+  - add
+  - remove
+  - update
+- forum (not build yet)
+- novels (not build yet)
+- home base building game (work in progress)
+- role playing game (unknown)
+- forum (unknown)
 
 # game modes:
 - moblie home base
@@ -50,7 +92,7 @@ vite.config.mjs // client vite config
 # sql database and design:
   Design and testing.
 
-  Either by using the function sql to check permission for create, update and delete. By using user id check with auth api.
+  Either by using the function sql to check permission for create, update, delete and views data. By using user id check with auth api.
 
   One example is delete user account.
   Two example is create their home base or home.

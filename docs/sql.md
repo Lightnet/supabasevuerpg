@@ -1,5 +1,43 @@
 
 
+https://stackoverflow.com/questions/69595895/how-to-insert-in-multiple-tables-with-a-single-api-call-in-supabase
+
+https://stackoverflow.com/questions/18130424/creating-trigger-that-runs-on-two-tables
+
+https://stackoverflow.com/questions/70626513/editing-values-before-inserting-a-row-supabase
+
+
+https://stackoverflow.com/questions/69595895/how-to-insert-in-multiple-tables-with-a-single-api-call-in-supabase
+
+
+```sql
+CREATE OR REPLACE FUNCTION public.insert_book_and_genre(book_name text, genre_name text)
+    RETURNS void language SQL AS
+$$
+  WITH genre AS (
+    insert into genre (name) values (genre_name) returning id
+  ),
+  book AS (
+    insert into book (name) values (book_name) returning id
+  )
+  insert into book_genre_rel (genre_id, book_id) 
+    select genre.id, book.id from genre, book
+$$
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 - https://www.youtube.com/watch?v=qxgZf4EelLg
 
 - https://www.youtube.com/watch?v=MJZCCpCYEqk

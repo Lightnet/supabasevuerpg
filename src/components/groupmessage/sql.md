@@ -1,4 +1,106 @@
 
+- https://stackoverflow.com/questions/1921627/multiple-insert-update-statements-inside-trigger
+
+```sql
+create or replace function public.handle_new_groupmessage()
+--returns trigger 
+returns void  
+language plpgsql 
+security definer set search_path = public
+as $$
+--declare
+  --s_id uuid;
+begin
+  WITH groupmessage_team AS(
+  insert into groupmessage_team( id)
+    values(new.team_id);
+    --returning id into s_id;
+    return new
+  ),
+  groupmessage_members AS(
+    insert into groupmessage_members(team_id)
+    values (new.team_id);
+    return new
+  );
+end;
+$$;
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+```sql
+
+create table if not exists groupmessage_team (
+  id uuid primary key,
+  name text
+);
+
+create table if not exists groupmessage_members (
+  id uuid default uuid_generate_v4() primary key,
+  team_id uuid references groupmessage_team,
+  user_id uuid references auth.users
+);
+
+create table if not exists groupmessage_info (
+  id uuid default uuid_generate_v4() primary key,
+  user_id uuid references auth.users not null default auth.uid(),
+  name text,
+  isPublic boolean default false,
+  team_id uuid default uuid_generate_v4() references groupmessage_team,
+  created_at timestamptz default now()
+);
+
+create table if not exists groupmessages (
+  id uuid default uuid_generate_v4() primary key,
+  team_id uuid references groupmessage_team,
+  user_id uuid references auth.users not null default auth.uid(),
+  alias text,
+  content text,
+  created_at timestamptz default now()
+);
+
+-- inserts a row event
+create or replace function public.handle_new_groupmessage()
+returns trigger 
+language plpgsql 
+security definer set search_path = public
+as $$
+--declare
+  --s_id uuid;
+begin
+
+  insert into groupmessage_team( id)
+  values(new.team_id);
+  --returning id into s_id;
+  return new;
+
+  insert into groupmessage_members(team_id)
+  values (new.team_id);
+  return new;
+end;
+$$;
+
+
+DROP TRIGGER IF EXISTS on_groupmessage_info_created on groupmessage_info;
+
+-- trigger the function every time a user is created
+create trigger on_groupmessage_info_created
+  after insert on groupmessage_info
+  for each row execute procedure public.handle_new_groupmessage();
+
+```
+
 
 
 

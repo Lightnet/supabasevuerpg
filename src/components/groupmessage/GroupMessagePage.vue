@@ -5,6 +5,7 @@ import { ref, onMounted, onUnmounted, onUpdated } from 'vue';
 const refScroll = ref()
 const message = ref("");
 const groupID = ref("");
+const isGroup = ref(false);
 
 const memberID = ref("");
 
@@ -15,10 +16,10 @@ async function createGroupMessage(){
   try{
     store.user = supabase.auth.user()
     let { data, error, status } = await supabase
-      .from("groupmessage")
-      .select('id, alias, message, user_id, created_at')
-      .order('created_at', { ascending: false })
-      .limit(30);
+      .from("groupmessage_info")
+      .insert([{
+        name:"group test"
+      }])
     if(error){
       console.log(error)
       return;
@@ -27,12 +28,12 @@ async function createGroupMessage(){
     if(data){
       //messages.value=data;
     }
+    console.log("create group")
   } catch (error) {
     console.log(error.message)
     //alert(error.message)
   }
 }
-
 
 function scrollToElement() {
   //const el = this.$refs.scrollToMe;
@@ -121,9 +122,26 @@ async function subChatMessage(){
   }
 }
 
-onMounted(()=>{
+async function JoinGroup(){
   getChatMessage();
   subChatMessage();
+}
+
+async function leaveGroup(){
+  supabase.removeSubscription(mySubscription)
+}
+
+async function grantUser(){
+
+}
+
+async function revokeUser(){
+
+}
+
+onMounted(()=>{
+  //getChatMessage();
+  //subChatMessage();
 })
 
 onUnmounted(()=>{
@@ -139,12 +157,18 @@ onUpdated(()=>{
 <template>
   <div style="height:calc(100% - 20px);">
     <div>
-      <label> Group ID: </label> <input v-model="groupID" /> <button> Join </button>
-      <button> Create </button>
+      <label> Group ID: </label> <input v-model="groupID" /> 
+      <button @click="JoinGroup"> Join </button>
+      <button @click="leaveGroup"> Leave </button>
+
+
+      <button @click="createGroupMessage"> Create </button>
+      <button @click="createGroupMessage"> Add </button>
+      <button @click="createGroupMessage"> Delete </button>
 
       <input v-model="memberID" />
-      <button> Grant </button>
-      <button> Revoke </button>
+      <button @click="grantUser"> Grant </button>
+      <button @click="revokeUser"> Revoke </button>
     </div>
     <div ref="refScroll" style="height:calc(100% - 40px);overflow-y: scroll;">
       <div v-for="msg in messages">

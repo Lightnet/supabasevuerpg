@@ -23,19 +23,6 @@ begin;
       true
     );
 commit;
-```
-
-```sql
-create table if not exists chatmessages (
-  id uuid default uuid_generate_v4() primary key,
-  user_id uuid references auth.users not null default auth.uid(),
-  alias text,
-  content text,
-  created_at timestamptz default now()
-);
-
-alter table chatmessages
-  enable row level security;
 
 -- replication, listen changes
 -- supabase_realtime
@@ -48,6 +35,35 @@ begin;
     --for all tables;
     with (publish = 'insert, update, delete');
 commit;
+```
+
+
+# Set up:
+simple script for clean and setup table and policy. Note it was dev testing.
+
+note you need to toggle boolean listen event in:
+```
+supabase url
+- database
+  - replication
+    - supabase_realtime
+      - Source
+        - chatmessages true
+```
+
+```sql
+--DROP TABLE if exists chatmessages;
+
+create table if not exists chatmessages (
+  id uuid default uuid_generate_v4() primary key,
+  user_id uuid references auth.users not null default auth.uid(),
+  alias text,
+  content text,
+  created_at timestamptz default now()
+);
+
+alter table chatmessages
+  enable row level security;
 
 begin; 
   drop policy if exists "Public chat messages are viewable by everyone."
