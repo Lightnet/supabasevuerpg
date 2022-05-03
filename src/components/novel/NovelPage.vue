@@ -3,6 +3,6 @@
 </script>
 <template>
   <div>
-    <label> Home </label>
+    <label>Index</label>
   </div>
 </template>

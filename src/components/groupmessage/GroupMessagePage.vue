@@ -54,6 +54,10 @@ function scrollToElement() {
 async function typingChatMessage(e){
   console.log("enter...")
   console.log(message.value)
+  if(!groupInfo.value){
+    console.log("null ID")
+    return;
+  }
   try {
     store.user = supabase.auth.user()
     //console.log(store.user)
@@ -152,6 +156,10 @@ async function JoinGroup(){
         }else{
           console.log("ADMIN FALSE")
         }
+        //isAdmin
+        isGroup.value=true;
+        getChatMessage();
+        subChatMessage();
       }
       
     if(error){
@@ -165,11 +173,6 @@ async function JoinGroup(){
   } finally {
     //loading.value = false
   }
-
-  //isAdmin
-  isGroup.value=true;
-  getChatMessage();
-  subChatMessage();
 }
 
 async function leaveGroup(){
@@ -177,6 +180,7 @@ async function leaveGroup(){
   messages.value=[];
   isGroup.value=false;
   isAdmin.value=false;
+  groupInfo.value=null;
 }
 
 async function grantUser(){
@@ -232,7 +236,7 @@ onUpdated(()=>{
       </div>
     </div>
     <div>
-      Chat Box <input v-model="message"  v-on:keyup.enter="typingChatMessage" /> <button> Send </button>
+      Chat Box <input v-model="message"  v-on:keyup.enter="typingChatMessage" /> <button @click="typingChatMessage"> Send </button>
     </div>
   </div>
 

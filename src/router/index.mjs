@@ -65,6 +65,31 @@ const routes = [
     name: 'GameMaster',
     component: () => import('../views/GameMaster.vue')
   },
+  {
+    path: '/novel',
+    name: 'Novel',
+    component: () => import('../views/Novel.vue'),
+    children: [
+      { path: '', component: () => import('../components/novel/NovelPage.vue') },
+      { path: 'book', component: () => import('../components/novel/Book.vue') },
+      { path: 'novels', component: () => import('../components/novel/Novels.vue') },
+      { path: 'bookmark', component: () => import('../components/novel/NovelBookmark.vue') },
+      { path: 'options', component: () => import('../components/novel/NovelOptions.vue') },
+    ]
+  },
+  {
+    path: '/forum',
+    name: 'Forum',
+    component: () => import('../views/Forum.vue'),
+    children: [
+      { path: '', component: () => import('../components/forum/ForumPage.vue') },
+      { path: 'board', component: () => import('../components/forum/ForumBoard.vue') },
+      { path: 'topic', component: () => import('../components/forum/ForumTopic.vue') },
+      { path: 'comment', component: () => import('../components/forum/ForumComment.vue') },
+      { path: 'bookmark', component: () => import('../components/forum/ForumBookmark.vue') },
+      { path: 'options', component: () => import('../components/forum/ForumOptions.vue') },
+    ]
+  }
 ]
 
 const router = createRouter({
