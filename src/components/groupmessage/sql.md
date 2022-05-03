@@ -2,6 +2,7 @@
 - https://stackoverflow.com/questions/1921627/multiple-insert-update-statements-inside-trigger
 
 ```sql
+--testing...
 create or replace function public.handle_new_groupmessage()
 --returns trigger 
 returns void  
@@ -23,6 +24,23 @@ begin
     return new
   );
 end;
+$$;
+```
+
+```sql
+--testing...
+create or replace function public.handle_new_groupmessage3()
+--returns trigger 
+returns void  
+language plpgsql 
+security definer set search_path = public
+as $$
+BEGIN
+  INSERT INTO groupmessage_team( id)
+    values(new.team_id);
+  INSERT INTO groupmessage_members(team_id)
+    values (new.team_id);
+END;
 $$;
 ```
 

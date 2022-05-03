@@ -5,7 +5,10 @@ import { ref, onMounted, onUnmounted, onUpdated } from 'vue';
 const refScroll = ref()
 const message = ref("");
 const groupID = ref("");
+// cd80b459-4d32-4878-917d-f9e82578e9b3
+const groupInfo = ref(null);
 const isGroup = ref(false);
+const isAdmin = ref(false);
 
 const memberID = ref("");
 
@@ -38,7 +41,7 @@ async function createGroupMessage(){
 function scrollToElement() {
   //const el = this.$refs.scrollToMe;
   const el = refScroll.value;
-  console.log(refScroll)
+  //console.log(refScroll)
 
   if (el) {
     // Use el.scrollIntoView() to instantly scroll to the element
@@ -55,12 +58,13 @@ async function typingChatMessage(e){
     store.user = supabase.auth.user()
     //console.log(store.user)
     const { data, error } = await supabase
-      .from('groupmessage')
+      .from('groupmessages')
       .insert([
         {
+          team_id: groupID.value,
           user_id: store.user.id,
           alias: "USERNAME",
-          message: message.value
+          content: message.value
         }
       ])
     if(error){
@@ -75,15 +79,16 @@ async function typingChatMessage(e){
     //loading.value = false
   }
 }
-
+// https://github.com/supabase/supabase/discussions/2741
 async function getChatMessage(){
   console.log("get messages")
   try{
     store.user = supabase.auth.user()
 
     let { data, error, status } = await supabase
-      .from("groupmessage")
-      .select('id, alias, message, user_id, created_at')
+      .from("groupmessages")
+      .select('id, alias, content, user_id, created_at, team_id')
+      .eq('team_id',groupID.value)
       .order('created_at', { ascending: false })
       .limit(30);
     if(error){
@@ -108,7 +113,9 @@ async function getChatMessage(){
 async function subChatMessage(){
   try{
     mySubscription = supabase
-    .from('groupmessage')
+    .from('groupmessages')
+    //.select('id, alias, content, user_id, created_at')
+    //.eq('team_id',groupID.value)
     .on('INSERT', payload => {
       console.log('Change received!', payload)
       if(payload.new){
@@ -123,12 +130,53 @@ async function subChatMessage(){
 }
 
 async function JoinGroup(){
+
+  try {
+    store.user = supabase.auth.user()
+    //console.log(store.user)
+    console.log(groupID.value)
+    const { data, error } = await supabase
+      .from('groupmessage_info')
+      .select('id, team_id, user_id')
+      .match({team_id: groupID.value})
+      //.eq('team_id', groupID.value)
+      .single();
+
+      console.log("data");
+      console.log(data);
+      if(data){
+        groupInfo.value = data;
+        if(store.user.id == data.user_id){
+          console.log("ADMIN TRUE")
+          isAdmin.value = true;
+        }else{
+          console.log("ADMIN FALSE")
+        }
+      }
+      
+    if(error){
+      console.log(error);
+      return;
+    }
+    //scrollToElement();
+  } catch (error) {
+    console.log(error.message)
+    //alert(error.message)
+  } finally {
+    //loading.value = false
+  }
+
+  //isAdmin
+  isGroup.value=true;
   getChatMessage();
   subChatMessage();
 }
 
 async function leaveGroup(){
-  supabase.removeSubscription(mySubscription)
+  supabase.removeSubscription(mySubscription);
+  messages.value=[];
+  isGroup.value=false;
+  isAdmin.value=false;
 }
 
 async function grantUser(){
@@ -146,7 +194,9 @@ onMounted(()=>{
 
 onUnmounted(()=>{
   console.log("remove...")
-  supabase.removeSubscription(mySubscription)
+  //supabase.removeSubscription(mySubscription);
+  //messages.value=[];
+  leaveGroup();
 })
 
 onUpdated(()=>{
@@ -157,23 +207,28 @@ onUpdated(()=>{
 <template>
   <div style="height:calc(100% - 20px);">
     <div>
-      <label> Group ID: </label> <input v-model="groupID" /> 
+      <label> Group ID: </label> 
+      <template v-if="!isGroup"> 
+      <input v-model="groupID" />
       <button @click="JoinGroup"> Join </button>
-      <button @click="leaveGroup"> Leave </button>
-
-
       <button @click="createGroupMessage"> Create </button>
       <button @click="createGroupMessage"> Add </button>
       <button @click="createGroupMessage"> Delete </button>
-
-      <input v-model="memberID" />
-      <button @click="grantUser"> Grant </button>
-      <button @click="revokeUser"> Revoke </button>
+      </template>
+      <template v-else>
+        <label> {{groupID}} </label>
+        <button @click="leaveGroup"> Leave </button>
+      </template>
+      <template v-if="isAdmin">
+        <input v-model="memberID" placeholder="User ID" />
+        <button @click="grantUser"> Grant </button>
+        <button @click="revokeUser"> Revoke </button>
+      </template>
     </div>
     <div ref="refScroll" style="height:calc(100% - 40px);overflow-y: scroll;">
       <div v-for="msg in messages">
         <label> {{msg.alias}}: </label>
-        <label> {{msg.message}} </label>
+        <label> {{msg.content}} </label>
       </div>
     </div>
     <div>

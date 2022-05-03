@@ -1,3 +1,8 @@
+
+
+- https://dev.to/razvanstatescu/how-to-run-custom-sql-queries-using-functions-in-supabase-2nna
+
+
 # roles:
 - https://www.reddit.com/r/Supabase/comments/rcvppc/creating_user_roles_at_signup/
 
