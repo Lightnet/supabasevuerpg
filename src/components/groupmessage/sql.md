@@ -44,18 +44,19 @@ END;
 $$;
 ```
 
+```sql
+create policy "Team members can insert message if they belong to the team."
+  on groupmessages
+  for insert using(
+    auth.uid() in (
+      select user_id from groupmessage_members
+      where team_id = team_id
+    )
+  );
+```
 
 
-
-
-
-
-
-
-
-
-
-
+# Set up script:
 
 ```sql
 
@@ -121,6 +122,9 @@ create trigger on_groupmessage_info_created
 
 
 
+testing...
+
+- https://supabase.com/docs/guides/auth/row-level-security
 
 ```sql
 

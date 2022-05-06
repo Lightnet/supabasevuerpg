@@ -1,3 +1,7 @@
+
+
+// https://router.vuejs.org/guide/essentials/dynamic-matching.html
+
 import {createRouter, createWebHistory, createWebHashHistory} from 'vue-router'
 
 const routes = [
@@ -71,7 +75,9 @@ const routes = [
     component: () => import('../views/Novel.vue'),
     children: [
       { path: '', component: () => import('../components/novel/NovelPage.vue') },
-      { path: 'book', component: () => import('../components/novel/Book.vue') },
+      { path: 'book', component: () => import('../components/novel/Book.vue'),
+        //props:route=>({id: route.query.id}),
+      },
       { path: 'novels', component: () => import('../components/novel/Novels.vue') },
       { path: 'bookmark', component: () => import('../components/novel/NovelBookmark.vue') },
       { path: 'options', component: () => import('../components/novel/NovelOptions.vue') },
