@@ -4,7 +4,6 @@ import { supabase } from "../../supabase"
 import { store } from "../../store"
 import Modal1 from "../modal/Modal.vue";
 
-
 const boards = ref([]);
 const forumName = ref("gboard");
 const forumDescription = ref("gdescription");
@@ -79,8 +78,7 @@ onMounted(()=>{
 
 <template>
   <div>
-    
-    <button @click="openCreateBoard"> Create </button>
+    <button @click="openCreateBoard"> Create Board</button>
   </div>
   <div>
     <div v-for="board in boards">
@@ -97,8 +95,8 @@ onMounted(()=>{
     </div>  
   </div>
   <Modal1 :isOpen="isOpen" @onClose="onCloseModal">
-    <label> Create Board</label><br />
-    <label> Board Name </label> <input v-model="forumName" /><br />
+    <label> Create Board:</label><br />
+    <label> Name </label> <input v-model="forumName" /><br />
     <label> Description </label> <input v-model="forumDescription" /><br />
     <button @click="createBoard"> Create </button>
   </Modal1>

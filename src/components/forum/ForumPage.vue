@@ -1,17 +1,20 @@
 <script setup>
 // 
+//import { useRoute } from 'vue-router';
 import { supabase } from "../../supabase"
 import { store } from "../../store"
 import { onMounted, ref } from "vue"
 import ViewBoard from "./ViewBoard.vue"
 
+const isLoading = ref(false);
 const forumData = ref(null);
 const forumName = ref("gforum");
 const forumDescription = ref("gdescription");
+//const route = useRoute();
 
 async function checkForum(){
   try {
-    //loading.value = true
+    isLoading.value = true
     //store.user = supabase.auth.user()
     //console.log("store.user.id");
     console.log(store.user.id);
@@ -28,11 +31,12 @@ async function checkForum(){
       forumData.value = data;
       store.forum = data;
     }
+    isLoading.value = false
   } catch (error) {
     console.log(error.message)
     //alert(error.message)
   } finally {
-    //loading.value = false
+    isLoading.value = false
   }
 }
 
@@ -68,8 +72,7 @@ onMounted(()=>{
 })
 </script>
 <template>
-  <div>
-    <label> Home </label><br/>
+  <div v-if="!isLoading">
     <template v-if="forumData">
       <label> ID:{{forumData.id}} </label><br/>
       <label> Name:{{forumData.title}} </label><br/>
@@ -81,8 +84,10 @@ onMounted(()=>{
       <label> Create Forum </label>
       <input v-model="forumName" placeholder="Name"/>
       <input v-model="forumDescription" placeholder="Description"/>
-      <button @click="createForum"> Create </button>
+      <button @click="createForum"> Create Board</button>
     </template>
-
+  </div>
+  <div v-else>
+    <label>Loading...</label>
   </div>
 </template>
